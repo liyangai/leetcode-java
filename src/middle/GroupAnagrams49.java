@@ -1,6 +1,8 @@
 package middle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +36,26 @@ public class GroupAnagrams49 {
 		}
 		
 		return re;
+    }
+	
+	public List<List<String>> groupAnagrams2(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return new ArrayList<List<String>>();
+        }
+        HashMap<String, List<String>> map = new HashMap<String, List<String>>();
+        for (String s : strs) {
+            char[] ca = s.toCharArray();
+            Arrays.sort(ca);
+            String keyStr = String.valueOf(ca);
+            if (!map.containsKey(keyStr)) {
+                map.put(keyStr, new ArrayList<String>());
+            }
+            map.get(keyStr).add(s);
+        }
+        for (String key : map.keySet()) {
+            Collections.sort(map.get(key));
+        }
+        return new ArrayList<List<String>>(map.values());
     }
 	public static void main(String[] args) {
 		String[] arr = {"eat","tea","tan","ate","nat","bat"};
